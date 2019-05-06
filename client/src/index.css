@@ -59,6 +59,12 @@ body {
 	font-family: "Open Sans", Tahoma, Geneva, sans-serif;
 }
 
+/* Content Wrapper */
+
+#content {
+	position: relative;
+}
+
 /* Song List */
 
 #songList {
@@ -107,8 +113,9 @@ body {
 .song-info {
 	padding-bottom: .25rem;
 	grid-area: info;
-	justify-self: start;
 	align-self: end;
+	display: flex;
+	justify-content: space-between;
 }
 
 .song-channel {
@@ -173,4 +180,20 @@ body {
 	width: 100%;
 	top: 0;
 	left: 0;
+}
+
+/* ChannelBox */
+
+#channelBox {
+	margin-left: 5vw;
+	position: fixed;
+	top: 33%;
+}
+
+.filter-channel {
+	cursor: pointer;
+}
+
+.filter-title {
+	text-transform: capitalize;
 }

@@ -1,13 +1,29 @@
 import React, { Component } from 'react';
 import SongList from './components/SongList';
+import ChannelBox from './components/ChannelBox';
 
 class App extends Component {  
   constructor(props) {
     super(props);
 
     this.state = {
-      songs: null
+      songs: null,
+      channelSort: {
+        Proximity: true,
+        'Thrilling Music': true,
+        'Revealed Music': true,
+        WaveMusic: true,
+      }
     };
+  }
+
+  toggleSort = (channel) => {
+    this.setState({
+      channelSort: {
+        ...this.state.channelSort,
+        [channel]: !this.state.channelSort[channel]
+      }
+    })
   }
 
   async componentDidMount() {
@@ -23,7 +39,16 @@ class App extends Component {
       <div>
         {
           this.state.songs
-          && <SongList songs={this.state.songs} />
+          && <div id='content'>
+              <SongList
+                channelSort={this.state.channelSort}
+                songs={this.state.songs}
+              />
+              <ChannelBox
+                channelSort={this.state.channelSort}
+                toggleSort={this.toggleSort}
+              />
+             </div>  
         }
       </div>
     );

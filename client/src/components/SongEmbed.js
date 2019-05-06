@@ -43,7 +43,7 @@ class SongEmbed extends Component {
       <div
         className='youtube song-embed'
         data-embed={`${song.videoId}`}
-        onClick={() => { this.videoPlay() }}
+        onClick={this.videoPlay}
       >
         {this.state.play ? this.renderPlay() : this.renderNoPlay()}
       </div>

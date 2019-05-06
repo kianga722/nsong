@@ -17,10 +17,10 @@ const urlBase = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippe
 
 // List of Youtube channel sources
 const channelsYT = {
-  proximity: 'UU3ifTl5zKiCAhHIBQYcaTeg',
-  thrilling: 'UUh_Ob9q_Tf7-7Opf_6YvaKw',
-  revealed: 'UUnhHe0_bk_1_0So41vsZvWw',
-  wave: 'UUbuK8xxu2P_sqoMnDsoBrrg',
+  Proximity: 'UU3ifTl5zKiCAhHIBQYcaTeg',
+  'Thrilling Music': 'UUh_Ob9q_Tf7-7Opf_6YvaKw',
+  'Revealed Music': 'UUnhHe0_bk_1_0So41vsZvWw',
+  WaveMusic: 'UUbuK8xxu2P_sqoMnDsoBrrg',
 };
 
 // function to create array of promises from urlBase and channelsYT
