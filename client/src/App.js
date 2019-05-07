@@ -26,6 +26,30 @@ class App extends Component {
     })
   }
 
+  UnSelectAll = () => {
+    let channelCopy = { ...this.state.channelSort };
+    Object.keys(channelCopy).forEach(channel => {
+      channelCopy[channel] = false;
+    })
+    this.setState({
+      channelSort: {
+        ...channelCopy
+      }
+    })
+  }
+
+  SelectAll = () => {
+    let channelCopy = { ...this.state.channelSort };
+    Object.keys(channelCopy).forEach(channel => {
+      channelCopy[channel] = true;
+    })
+    this.setState({
+      channelSort: {
+        ...channelCopy
+      }
+    })
+  }
+
   async componentDidMount() {
     const songsGet = await fetch('/api/');
     const songsGetJSON = await songsGet.json();
@@ -47,6 +71,8 @@ class App extends Component {
               <ChannelBox
                 channelSort={this.state.channelSort}
                 toggleSort={this.toggleSort}
+                UnSelectAll={this.UnSelectAll}
+                SelectAll={this.SelectAll}
               />
              </div>  
         }

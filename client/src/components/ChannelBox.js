@@ -1,16 +1,39 @@
 import React, { Component } from 'react';
 
 class ChannelBox extends Component {
+
+  // Check if every filter option is selected
+  isSelectAll = () => {
+    return Object.values(this.props.channelSort).every((channel) => { return channel === true })
+  }
+
+  renderUnselectAll = () => {
+    return (
+      <div
+        className='filter-all'
+        onClick={this.props.UnSelectAll}
+      >
+        Unselect All
+      </div>
+    )
+  }
+
+  renderSelectAll = () => {
+    return (
+      <div
+        className='filter-all'
+        onClick={this.props.SelectAll}
+      >
+        Select All
+      </div>
+    )
+  }
+
   render() {
     return (
       <aside id='channelBox'>
         <div>Channel Filter</div>
-        <div className='filter-channel' >
-          <input type='checkbox' />
-          <span className='filter-title' >
-            Show All
-          </span>
-        </div>
+        {this.isSelectAll() ? this.renderUnselectAll() : this.renderSelectAll()}
         {
           Object.keys(this.props.channelSort).map((channel) => (
             <div
@@ -28,12 +51,6 @@ class ChannelBox extends Component {
             </div>
           ))
         }
-        <div className='filter-channel'>
-          <input type='checkbox' />
-          <span className='filter-title'>
-            Show None
-          </span>
-        </div>
       </aside>
     )
   }

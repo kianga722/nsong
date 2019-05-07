@@ -197,3 +197,8 @@ body {
 .filter-title {
 	text-transform: capitalize;
 }
+
+.filter-all {
+	padding: 1rem;
+	cursor: pointer;
+}
