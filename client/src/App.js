@@ -26,22 +26,10 @@ class App extends Component {
     })
   }
 
-  UnSelectAll = () => {
+  selectAll = (bool) => {
     let channelCopy = { ...this.state.channelSort };
     Object.keys(channelCopy).forEach(channel => {
-      channelCopy[channel] = false;
-    })
-    this.setState({
-      channelSort: {
-        ...channelCopy
-      }
-    })
-  }
-
-  SelectAll = () => {
-    let channelCopy = { ...this.state.channelSort };
-    Object.keys(channelCopy).forEach(channel => {
-      channelCopy[channel] = true;
+      channelCopy[channel] = bool;
     })
     this.setState({
       channelSort: {
@@ -71,8 +59,7 @@ class App extends Component {
               <ChannelBox
                 channelSort={this.state.channelSort}
                 toggleSort={this.toggleSort}
-                UnSelectAll={this.UnSelectAll}
-                SelectAll={this.SelectAll}
+                selectAll={this.selectAll}
               />
              </div>  
         }

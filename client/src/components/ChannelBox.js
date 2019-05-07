@@ -7,24 +7,13 @@ class ChannelBox extends Component {
     return Object.values(this.props.channelSort).every((channel) => { return channel === true })
   }
 
-  renderUnselectAll = () => {
+  renderSelectAll = (bool) => {
     return (
       <div
         className='filter-all'
-        onClick={this.props.UnSelectAll}
+        onClick={() => this.props.selectAll(bool)}
       >
-        Unselect All
-      </div>
-    )
-  }
-
-  renderSelectAll = () => {
-    return (
-      <div
-        className='filter-all'
-        onClick={this.props.SelectAll}
-      >
-        Select All
+        {bool ? 'Select All':'Unselect All'}
       </div>
     )
   }
@@ -33,7 +22,7 @@ class ChannelBox extends Component {
     return (
       <aside id='channelBox'>
         <div>Channel Filter</div>
-        {this.isSelectAll() ? this.renderUnselectAll() : this.renderSelectAll()}
+        {this.isSelectAll() ? this.renderSelectAll(false) : this.renderSelectAll(true)}
         {
           Object.keys(this.props.channelSort).map((channel) => (
             <div
