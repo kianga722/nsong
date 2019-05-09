@@ -7,6 +7,7 @@ class ChannelBox extends Component {
     return Object.values(this.props.channelSort).every((channel) => { return channel === true })
   }
 
+  // Render correct select all button
   renderSelectAll = (bool) => {
     return (
       <div
@@ -21,7 +22,7 @@ class ChannelBox extends Component {
   render() {
     return (
       <aside id='channelBox'>
-        <div>Channel Filter</div>
+        <div className='box-title'>Channel Filter</div>
         {this.isSelectAll() ? this.renderSelectAll(false) : this.renderSelectAll(true)}
         {
           Object.keys(this.props.channelSort).map((channel) => (
