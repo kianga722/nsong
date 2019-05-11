@@ -65,6 +65,24 @@ body {
 	position: relative;
 }
 
+/* Sort Bar */
+
+#sortBar {
+	text-align: right;
+}
+
+#dateSort {
+	display: inline-block;
+	margin: 1rem;
+	cursor: pointer;
+}
+
+.dropdown {
+	display: flex;
+	flex-direction: column;
+}
+
+
 /* Song List */
 
 #songList {
