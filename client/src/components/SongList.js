@@ -3,7 +3,7 @@ import SongEmbed from './SongEmbed';
 
 class SongList extends Component {
   // Setup Youtube Lazy Loading
-  componentDidMount() {
+  ytLazyLoad = () => {
     const youtube = document.querySelectorAll('.youtube');
     youtube.forEach(vid => {
       // create image element
@@ -13,6 +13,14 @@ class SongList extends Component {
       // append image 
       vid.appendChild(image);
     })
+  }
+
+  componentDidMount() {
+    this.ytLazyLoad();
+  }
+
+  componentDidUpdate() {
+    this.ytLazyLoad();
   }
 
   render() {
