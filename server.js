@@ -18,8 +18,8 @@ const urlBase = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippe
 // List of Youtube channel sources
 const channelsYT = {
   Proximity: 'UU3ifTl5zKiCAhHIBQYcaTeg',
-  'Thrilling Music': 'UUh_Ob9q_Tf7-7Opf_6YvaKw',
   'Revealed Music': 'UUnhHe0_bk_1_0So41vsZvWw',
+  'Thrilling Music': 'UUh_Ob9q_Tf7-7Opf_6YvaKw',
   WaveMusic: 'UUbuK8xxu2P_sqoMnDsoBrrg',
 };
 

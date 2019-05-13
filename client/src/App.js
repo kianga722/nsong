@@ -9,11 +9,12 @@ class App extends Component {
 
     this.state = {
       songs: null,
+      groupChannels: false,
       sortDateNewest: true,
       channelSort: {
         Proximity: true,
-        'Thrilling Music': true,
         'Revealed Music': true,
+        'Thrilling Music': true,
         WaveMusic: true,
       },
     };
@@ -23,6 +24,40 @@ class App extends Component {
     this.setState({
       songs: songsNew
     })
+  }
+
+  groupChannelsToggle = () => {
+    this.setState({
+      groupChannels: !this.state.groupChannels
+    })
+  }
+
+  sortSong = (d1, d2, bool) => {
+    if (d1 >= d2) {
+      return bool ? -1:1;
+    }
+    if (d1 < d2) {
+      return bool ? 1:-1;
+    }
+  }
+
+  groupChannelsEnable = () => {
+    let songsGrouped = [...this.state.songs];
+    songsGrouped.sort((a, b) => {
+      let d1;
+      let d2;
+      if (this.state.groupChannels) {
+        d1 = new Date(a.published);
+        d2 = new Date(b.published);
+        return this.sortSong(d1, d2, true);
+      } else {
+        d1 = a.channel;
+        d2 = b.channel;
+        return this.sortSong(d1, d2, false);
+      }
+    })
+    this.songsSet(songsGrouped);
+    this.groupChannelsToggle(); 
   }
 
   sortDateNewestToggle = (bool) => {
@@ -57,21 +92,7 @@ class App extends Component {
     songsSorted.sort((a, b) => {
       const d1 = new Date(a.published);
       const d2 = new Date(b.published);
-      if (bool) {
-        if (d1 >= d2) {
-          return -1;
-        }
-        if (d1 < d2) {
-          return 1;
-        }
-      } else {
-        if (d1 >= d2) {
-          return 1;
-        }
-        if (d1 < d2) {
-          return -1;
-        }
-      }
+      return this.sortSong(d1, d2, bool);
     })
     this.songsSet(songsSorted);
     this.sortDateNewestToggle(bool); 
@@ -90,6 +111,8 @@ class App extends Component {
           this.state.songs
           && <div id='content'>
               <SortBar
+                groupChannels={this.state.groupChannels}
+                groupChannelsEnable={this.groupChannelsEnable}
                 sortDateNewest={this.state.sortDateNewest}
                 dateSortNewest={this.dateSortNewest}
               />

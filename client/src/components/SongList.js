@@ -4,10 +4,18 @@ import SongEmbed from './SongEmbed';
 class SongList extends Component {
   // Setup Youtube Lazy Loading
   ytLazyLoad = () => {
+    // Remove all preview images
+    const images = document.querySelectorAll('.yt-lazy-image');
+    images.forEach(img => {
+      img.parentElement.removeChild(img);
+    })
+
+    // Add all preview images back
     const youtube = document.querySelectorAll('.youtube');
     youtube.forEach(vid => {
       // create image element
       const image = document.createElement('img');
+      image.classList.add('yt-lazy-image');
       // thumbnail image source
       image.src = `https://img.youtube.com/vi/${vid.dataset.embed}/mqdefault.jpg`;
       // append image 

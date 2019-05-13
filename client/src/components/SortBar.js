@@ -41,10 +41,23 @@ class SortBar extends Component {
       </div>
     )
   }
-     
+
   render() {
     return (
       <div id='sortBar'>
+        
+        <div
+          id='groupChannels'
+          onClick={this.props.groupChannelsEnable}
+        >
+          <input
+            type='checkbox'
+            checked={this.props.groupChannels}
+          />
+          <span className='groupChannels-title'>
+            Group By Channel
+          </span>
+        </div>
         
         <div id='dateSort'>
           <a href='#'
@@ -55,6 +68,7 @@ class SortBar extends Component {
           </a>
           {this.state.dropdownDateShow ? this.renderDropdown() : null}
         </div>
+
       </div>
     )
   }
