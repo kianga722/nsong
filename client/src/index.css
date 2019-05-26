@@ -68,18 +68,144 @@ body {
 /* Sort Bar */
 
 #sortBar {
-	text-align: right;
+	display: flex;
+	justify-content: flex-end;
+	background-color: #000000a8;
 }
 
-#dateSort {
-	display: inline-block;
+
+/* Label */
+#groupChannels label {
+	display: flex;
+	position: relative;
+	align-items: center;
+	padding: 1rem;
 	margin: 1rem;
+	background-color: #ddd;
+	border: 2px solid #f91bf9;
+	border-radius: 5px;
+	font-weight: 700;
 	cursor: pointer;
 }
 
+#groupChannels label:hover {
+	background-color: white;
+}
+
+/* Input */
+#groupChannelsSort {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+}
+
+/* Checkbox */
+.checkCustom {
+	width: 25px;
+	height: 25px;
+	margin-right: .5rem;
+	position: relative;
+	background-color: #eee;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+/* On hover */
+#groupChannels:hover input ~ .checkCustom {
+	background-color: #ccc;
+}
+
+/* After checked */
+#groupChannels input:checked ~ .checkCustom {
+	background-color: #2196F3;
+}
+
+/* Additional styling inside checkbox */
+.checkCustom:after {
+	content: '';
+	display: none;
+	width: 8px;
+	height: 8px;
+	position: absolute;
+	top: 34%;
+	left: 35%;
+	border-radius: 50%;
+	background: white;
+}
+
+#groupChannels input:checked ~ .checkCustom:after {
+	display: block;
+}
+
+
+#dateSort {
+	position: relative;
+	display: flex;
+	align-items: center;
+	padding: 1rem;
+	margin: 1rem;
+	background-color: #ddd;
+	border: 2px solid red;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+#dateSort:hover {
+	background-color: white;
+}
+
+#dateSort .dropdownToggle {
+	display: block;
+	font-weight: 700;
+}
+
 .dropdown {
+	position: absolute;
+	top: 100%;
+	right: 0;
 	display: flex;
 	flex-direction: column;
+	background-color: #ddd;
+	border: 2px solid red;
+	border-radius: 5px;
+	white-space: nowrap;
+}
+
+.dropdown a {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	padding: 1rem;
+}
+
+.dropdown a:hover {
+	background-color: rgb(255, 204, 204)
+}
+
+.dropdown-empty,
+.dropdown-current {
+	position: relative;
+	display: block;
+	width: 25px;
+	height: 25px;
+	margin-right: .5rem;
+	background-color: #2196F3;
+	border-radius: 50%;
+}
+
+.dropdown-current:after {
+	content: '';
+	width: 8px;
+	height: 8px;
+	position: absolute;
+	top: 34%;
+	left: 35%;
+	border-radius: 50%;
+	background: white;
+}
+
+.dropdown-empty {
+	visibility: hidden;
 }
 
 

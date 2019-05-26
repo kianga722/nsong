@@ -25,8 +25,8 @@ class SortBar extends Component {
             this.dropdownToggle();
           }}
         >
+          {this.props.sortDateNewest ? <span className='dropdown-current'></span> : <span className='dropdown-empty'></span>} 
           <span>Date (Newest First)</span>
-          {this.props.sortDateNewest ? <span>current</span> : null}
         </a>
         <a href='#'
           className='dropdown-item'
@@ -35,8 +35,8 @@ class SortBar extends Component {
             this.dropdownToggle();
           }}
         >
+          {this.props.sortDateNewest ? <span className='dropdown-empty'></span> : <span className='dropdown-current'></span>} 
           <span>Date (Oldest First)</span>
-          {this.props.sortDateNewest ? null : <span>current</span>}
         </a>
       </div>
     )
@@ -48,21 +48,25 @@ class SortBar extends Component {
         
         <div
           id='groupChannels'
-          onClick={this.props.groupChannelsEnable}
         >
-          <input
-            type='checkbox'
-            checked={this.props.groupChannels}
-          />
-          <span className='groupChannels-title'>
-            Group By Channel
-          </span>
+          <label htmlFor='groupChannelsSort'>
+            <input
+              type='checkbox'
+              id='groupChannelsSort'
+              checked={this.props.groupChannels}
+              onChange={this.props.groupChannelsEnable}
+            />
+            <span className="checkCustom"></span>
+            <span>Group By Channel</span>
+          </label>
         </div>
         
-        <div id='dateSort'>
+        <div
+          id='dateSort'
+          onClick={this.dropdownToggle}
+        >
           <a href='#'
             className='dropdownToggle'
-            onClick={this.dropdownToggle}
           >
             {this.props.sortDateNewest ? 'Date (Newest First)' : 'Date (Oldest First)'}
           </a>

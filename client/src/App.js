@@ -42,6 +42,7 @@ class App extends Component {
   }
 
   groupChannelsEnable = () => {
+    console.log('hello')
     let songsGrouped = [...this.state.songs];
     songsGrouped.sort((a, b) => {
       let d1;
