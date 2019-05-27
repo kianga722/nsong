@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SortBar from './components/SortBar';
 import SongList from './components/SongList';
+import LayoutChange from './components/LayoutChange';
 import ChannelBox from './components/ChannelBox';
 
 class App extends Component {  
@@ -11,6 +12,7 @@ class App extends Component {
       songs: null,
       groupChannels: false,
       sortDateNewest: true,
+      layoutChange: false,
       channelSort: {
         Proximity: true,
         'Revealed Music': true,
@@ -42,7 +44,6 @@ class App extends Component {
   }
 
   groupChannelsEnable = () => {
-    console.log('hello')
     let songsGrouped = [...this.state.songs];
     songsGrouped.sort((a, b) => {
       let d1;
@@ -64,6 +65,12 @@ class App extends Component {
   sortDateNewestToggle = (bool) => {
     this.setState({
       sortDateNewest: bool
+    })
+  }
+
+  layoutToggle = () => {
+    this.setState({
+      layoutChange: !this.state.layoutChange
     })
   }
 
@@ -118,8 +125,13 @@ class App extends Component {
                 dateSortNewest={this.dateSortNewest}
               />
               <SongList
-                channelSort={this.state.channelSort}
                 songs={this.state.songs}
+                channelSort={this.state.channelSort}
+                layoutChange={this.state.layoutChange}
+              />
+              <LayoutChange
+                layoutChange={this.state.layoutChange}
+                layoutToggle={this.layoutToggle}
               />
               <ChannelBox
                 channelSort={this.state.channelSort}

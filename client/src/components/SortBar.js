@@ -17,8 +17,8 @@ class SortBar extends Component {
 
   renderDropdown = () => {
     return (
-      <div className='dropdown'>
-        <a href='#'
+      <ul className='dropdown'>
+        <li
           className='dropdown-item'
           onClick={() => {
             this.props.dateSortNewest(true);
@@ -27,8 +27,8 @@ class SortBar extends Component {
         >
           {this.props.sortDateNewest ? <span className='dropdown-current'></span> : <span className='dropdown-empty'></span>} 
           <span>Date (Newest First)</span>
-        </a>
-        <a href='#'
+        </li>
+        <li
           className='dropdown-item'
           onClick={() => {
             this.props.dateSortNewest(false);
@@ -37,42 +37,51 @@ class SortBar extends Component {
         >
           {this.props.sortDateNewest ? <span className='dropdown-empty'></span> : <span className='dropdown-current'></span>} 
           <span>Date (Oldest First)</span>
-        </a>
-      </div>
+        </li>
+      </ul>
     )
   }
 
   render() {
     return (
       <div id='sortBar'>
-        
-        <div
-          id='groupChannels'
-        >
-          <label htmlFor='groupChannelsSort'>
-            <input
-              type='checkbox'
-              id='groupChannelsSort'
-              checked={this.props.groupChannels}
-              onChange={this.props.groupChannelsEnable}
-            />
-            <span className="checkCustom"></span>
-            <span>Group By Channel</span>
-          </label>
-        </div>
-        
-        <div
-          id='dateSort'
-          onClick={this.dropdownToggle}
-        >
-          <a href='#'
-            className='dropdownToggle'
+
+        <div id='logo'>
+          <a href='https://nsong.herokuapp.com'
           >
-            {this.props.sortDateNewest ? 'Date (Newest First)' : 'Date (Oldest First)'}
+            nsong
           </a>
-          {this.state.dropdownDateShow ? this.renderDropdown() : null}
         </div>
 
+        <ul id='sort-options'>
+          <li id='groupChannels'>
+            <label htmlFor='groupChannelsSort'>
+              <input
+                type='checkbox'
+                id='groupChannelsSort'
+                checked={this.props.groupChannels}
+                onChange={this.props.groupChannelsEnable}
+              />
+              <span className="checkCustomGroup"></span>
+              <span>Group By Channel</span>
+            </label>
+          </li>
+          
+          <li
+            id='dateSort'
+            onClick={this.dropdownToggle}
+          >
+            <div className='dropdownToggle'>
+              <span>
+              {this.props.sortDateNewest ? 'Date (Newest First)' : 'Date (Oldest First)'}
+              </span>
+              {this.state.dropdownDateShow ? <i className='arrow up'></i> : <i className='arrow down'></i>}
+              
+            </div>
+            {this.state.dropdownDateShow ? this.renderDropdown() : null}
+          </li>
+        </ul>
+      
       </div>
     )
   }

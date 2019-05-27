@@ -2,39 +2,13 @@ import React, { Component } from 'react';
 import SongEmbed from './SongEmbed';
 
 class SongList extends Component {
-  // Setup Youtube Lazy Loading
-  ytLazyLoad = () => {
-    // Remove all preview images
-    const images = document.querySelectorAll('.yt-lazy-image');
-    images.forEach(img => {
-      img.parentElement.removeChild(img);
-    })
-
-    // Add all preview images back
-    const youtube = document.querySelectorAll('.youtube');
-    youtube.forEach(vid => {
-      // create image element
-      const image = document.createElement('img');
-      image.classList.add('yt-lazy-image');
-      // thumbnail image source
-      image.src = `https://img.youtube.com/vi/${vid.dataset.embed}/mqdefault.jpg`;
-      // append image 
-      vid.appendChild(image);
-    })
-  }
-
-  componentDidMount() {
-    this.ytLazyLoad();
-  }
-
-  componentDidUpdate() {
-    this.ytLazyLoad();
-  }
-
   render() {
     // Render based on filterbox
     return (
-      <section id='songList'>
+      <section
+        id='songList'
+        className={this.props.layoutChange ? 'layoutChange':null}
+      >
         {
           this.props.songs.map((song) => (
             this.props.channelSort[song.channel]

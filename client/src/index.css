@@ -56,6 +56,7 @@ a {
 /* Font */
 
 body {
+	background-color: #fdfdfd;
 	font-family: "Open Sans", Tahoma, Geneva, sans-serif;
 }
 
@@ -69,10 +70,30 @@ body {
 
 #sortBar {
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
 	background-color: #000000a8;
 }
 
+#logo {
+	display: flex;
+	align-items: center;
+}
+
+#logo a {
+	display: block;
+	padding: 1rem;
+	color: #f99292;
+	font-size: 36px;
+}
+
+#logo a:hover {
+	color: white;
+}
+
+#sort-options {
+	display: flex;
+	justify-content: flex-end;
+}
 
 /* Label */
 #groupChannels label {
@@ -81,7 +102,7 @@ body {
 	align-items: center;
 	padding: 1rem;
 	margin: 1rem;
-	background-color: #ddd;
+	background-color: #d7d9ff;
 	border: 2px solid #f91bf9;
 	border-radius: 5px;
 	font-weight: 700;
@@ -100,7 +121,7 @@ body {
 }
 
 /* Checkbox */
-.checkCustom {
+.checkCustomGroup {
 	width: 25px;
 	height: 25px;
 	margin-right: .5rem;
@@ -111,17 +132,17 @@ body {
 }
 
 /* On hover */
-#groupChannels:hover input ~ .checkCustom {
+#groupChannels:hover input ~ .checkCustomGroup {
 	background-color: #ccc;
 }
 
 /* After checked */
-#groupChannels input:checked ~ .checkCustom {
-	background-color: #2196F3;
+#groupChannels input:checked ~ .checkCustomGroup {
+	background-color: red;
 }
 
 /* Additional styling inside checkbox */
-.checkCustom:after {
+.checkCustomGroup:after {
 	content: '';
 	display: none;
 	width: 8px;
@@ -133,7 +154,7 @@ body {
 	background: white;
 }
 
-#groupChannels input:checked ~ .checkCustom:after {
+#groupChannels input:checked ~ .checkCustomGroup:after {
 	display: block;
 }
 
@@ -144,7 +165,7 @@ body {
 	align-items: center;
 	padding: 1rem;
 	margin: 1rem;
-	background-color: #ddd;
+	background-color: #d7d9ff;
 	border: 2px solid red;
 	border-radius: 5px;
 	cursor: pointer;
@@ -159,27 +180,49 @@ body {
 	font-weight: 700;
 }
 
+/* Dropdown Arrow Styling */
+i {
+	display: inline-block;
+	margin-left: 1rem;
+	padding: 3px;
+	position: relative;
+	top: -2px;
+	border: solid black;
+  border-width: 0 3px 3px 0;
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.up {
+	transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
 .dropdown {
 	position: absolute;
 	top: 100%;
 	right: 0;
 	display: flex;
 	flex-direction: column;
-	background-color: #ddd;
+	background-color: #f3f3f3;
 	border: 2px solid red;
 	border-radius: 5px;
 	white-space: nowrap;
+	z-index: 2;
 }
 
-.dropdown a {
+.dropdown li {
 	display: flex;
 	align-items: center;
 	width: 100%;
 	padding: 1rem;
 }
 
-.dropdown a:hover {
-	background-color: rgb(255, 204, 204)
+.dropdown li:hover {
+	background-color: white;
 }
 
 .dropdown-empty,
@@ -189,7 +232,7 @@ body {
 	width: 25px;
 	height: 25px;
 	margin-right: .5rem;
-	background-color: #2196F3;
+	background-color: red;
 	border-radius: 50%;
 }
 
@@ -227,7 +270,7 @@ body {
 		'embed title'
 		'embed link'
 		'embed info';
-	border-bottom: 1px solid black;
+	border-bottom: 2px solid #ff4949;
 }
 
 .song-embed {
@@ -266,6 +309,29 @@ body {
 .song-channel {
 	margin-right: .5rem;
 }
+
+
+/* SongList Layout Change */
+
+#songList.layoutChange {
+	max-width: unset;
+	margin: 0 5vw 0 24vw;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-gap: 2vw;
+}
+
+.layoutChange .song {
+	margin: 2rem auto 0 auto;
+	grid-template-columns: 1fr;
+	grid-template-areas:
+		'embed'
+		'title'
+		'link'
+		'info';
+}
+
+
 
 /* Youtube Lazy Loading */
 
@@ -327,13 +393,32 @@ body {
 	left: 0;
 }
 
+/* LayoutChange*/
+
+#layoutChange {
+	position: fixed;
+	top: 25%;
+	left: 0;
+	margin-left: 3.5vw;
+	padding: 1rem;
+	font-weight: 700;
+	box-shadow: 0px 0px 7px 3px #f2d4d4;
+	cursor: pointer;
+}
+
+#layoutChange:hover {
+	background-color: #d7d9ff;
+}
+
+
 /* ChannelBox */
 
 #channelBox {
 	position: fixed;
-	top: 33%;
-	margin-left: 1rem;
-	box-shadow: 0px 0px 7px 3px #f2d4d4;
+	top: 44%;
+	left: 0;
+	margin-left: 2vw;
+	box-shadow: 0px 0px 7px 3px #7b1414;
 }
 
 .box-title {
@@ -353,18 +438,70 @@ body {
 }
 
 .filter-all:hover {
-	background-color: #ffffbf;
+	background-color: #ffdddd;
 	opacity: .8;
 }
 
-.filter-channel {
-	padding: .25rem;
+
+/* Label */
+#channelBox label {
+	display: flex;
+	position: relative;
+	align-items: center;
+	padding: .5rem 1rem;
+	font-weight: 700;
+	border: 1px solid white;
 	cursor: pointer;
 }
 
-.filter-channel:hover {
-	background-color: #ffffbf;
+#channelBox label:hover {
+	background-color: #ffdddd;
 	opacity: .8;
+	border: 1px solid red;
+}
+
+/* Input */
+#channelBox input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+}
+
+/* Checkbox */
+.checkCustomFilter {
+	width: 25px;
+	height: 15px;
+	margin-right: .5rem;
+	position: relative;
+	background-color: #eee;
+	cursor: pointer;
+}
+
+/* On hover */
+#channelBox label:hover input ~ .checkCustomFilter {
+	background-color: #ccc;
+}
+
+/* After checked */
+#channelBox label input:checked ~ .checkCustomFilter {
+	background-color: blue;
+}
+
+/* Additional styling inside checkbox */
+.checkCustomFilter:after {
+	content: '';
+	display: none;
+	width: 4px;
+	height: 4px;
+	position: absolute;
+	top: 39%;
+	left: 43%;
+	transform: rotate(45deg);
+	background: white;
+}
+
+#channelBox label input:checked ~ .checkCustomFilter:after {
+	display: block;
 }
 
 .filter-title {

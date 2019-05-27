@@ -26,19 +26,23 @@ class ChannelBox extends Component {
         {this.isSelectAll() ? this.renderSelectAll(false) : this.renderSelectAll(true)}
         {
           Object.keys(this.props.channelSort).map((channel) => (
-            <div
+            <label
               key={channel}
-              className='filter-channel'
-              onClick={() => this.props.toggleSort(channel)}
+              htmlFor={`filter-${channel}`}
             >
+
               <input
                 type='checkbox'
+                id={`filter-${channel}`}
                 checked={this.props.channelSort[channel]}
+                onChange={() => this.props.toggleSort(channel)}
               />
+              <span className="checkCustomFilter"></span>
               <span className='filter-title'>
                 {channel}
               </span>
-            </div>
+
+            </label>
           ))
         }
       </aside>
