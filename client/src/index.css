@@ -313,10 +313,50 @@ i {
 	align-self: end;
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 }
 
 .song-channel {
 	margin-right: .5rem;
+	display: flex;
+	align-items: center;
+}
+
+.channel-logo-wrapper {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	margin-right: .25rem;
+}
+
+.channel-logo {
+	width: 100%;
+	height: 100%;
+}
+
+/* Logos */
+.proximity {
+	background: url('./images/proximity.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.revealed {
+	background: url('./images/revealed.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.thrilling {
+	background: url('./images/thrilling.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.wavemusic {
+	background: url('./images/wavemusic.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 
@@ -341,6 +381,14 @@ i {
 		'info';
 }
 
+.layoutChange .song .song-info {
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.layoutChange .song .song-channel {
+	margin: .5rem 0;
+}
 
 
 /* Youtube Lazy Loading */
@@ -479,8 +527,8 @@ i {
 
 /* Checkbox */
 .checkCustomFilter {
-	width: 25px;
-	height: 15px;
+	width: 20px;
+	height: 20px;
 	margin-right: .5rem;
 	position: relative;
 	background-color: #eee;
@@ -493,11 +541,14 @@ i {
 }
 
 /* After checked */
-#channelBox label input:checked ~ .checkCustomFilter {
-	background-color: blue;
+#channelBox label input:checked ~ .checkCustomFilter .channelBox-logo {
+	width: 100%;
+	height: 100%;
 }
 
+
 /* Additional styling inside checkbox */
+/*
 .checkCustomFilter:after {
 	content: '';
 	display: none;
@@ -513,6 +564,7 @@ i {
 #channelBox label input:checked ~ .checkCustomFilter:after {
 	display: block;
 }
+*/
 
 .filter-title {
 	text-transform: capitalize;

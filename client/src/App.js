@@ -10,6 +10,8 @@ class App extends Component {
 
     this.state = {
       songs: null,
+      ytplay: {},
+      ytplayDefault: {},
       groupChannels: false,
       sortDateNewest: true,
       layoutChange: false,
@@ -19,6 +21,12 @@ class App extends Component {
         'Thrilling Music': true,
         WaveMusic: true,
       },
+      logos: {
+        Proximity: 'proximity',
+        'Revealed Music': 'revealed',
+        'Thrilling Music': 'thrilling',
+        WaveMusic: 'wavemusic',
+      },
     };
   }
 
@@ -27,6 +35,39 @@ class App extends Component {
       songs: songsNew
     })
   }
+
+  ytplayStateInit = () => {
+    this.state.songs.map((song) => {
+      this.setState({
+        ytplay: {
+          ...this.state.ytplay,
+          [song.videoId] : false
+        },
+        ytplayDefault: {
+          ...this.state.ytplayDefault,
+          [song.videoId] : false
+        }
+      })
+    })
+  }
+
+  // Reset YT vids on sort so they do not autoplay
+  ytplayStateReset = () => {
+    this.setState({
+      ytplay: {
+        ...this.state.ytplayDefault
+      }
+    })
+  }
+
+  videoPlay = (videoId) => {
+    this.setState({
+      ytplay: {
+        ...this.state.ytplay,
+        [videoId]: true
+      }
+    })
+  };
 
   groupChannelsToggle = () => {
     this.setState({
@@ -60,7 +101,9 @@ class App extends Component {
     })
     this.songsSet(songsGrouped);
     this.groupChannelsToggle(); 
+    this.ytplayStateReset();
   }
+
 
   sortDateNewestToggle = (bool) => {
     this.setState({
@@ -104,12 +147,16 @@ class App extends Component {
     })
     this.songsSet(songsSorted);
     this.sortDateNewestToggle(bool); 
+    this.ytplayStateReset();
   }
 
   async componentDidMount() {
+    // Fetch data from YT API
     const songsGet = await fetch('/api/');
     const songsGetJSON = await songsGet.json();
     this.songsSet(songsGetJSON);
+    // Set initial state of all YT videos
+    this.ytplayStateInit();
   }
 
   render() {
@@ -126,8 +173,12 @@ class App extends Component {
               />
               <SongList
                 songs={this.state.songs}
+                videoPlay={this.videoPlay}
+                ytplay={this.state.ytplay}
+                ytplayStateReset={this.ytplayStateReset}
                 channelSort={this.state.channelSort}
                 layoutChange={this.state.layoutChange}
+                logos={this.state.logos}
               />
               <LayoutChange
                 layoutChange={this.state.layoutChange}
@@ -137,6 +188,7 @@ class App extends Component {
                 channelSort={this.state.channelSort}
                 toggleSort={this.toggleSort}
                 selectAll={this.selectAll}
+                logos={this.state.logos}
               />
              </div>  
         }

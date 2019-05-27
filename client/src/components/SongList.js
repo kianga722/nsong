@@ -3,7 +3,6 @@ import SongEmbed from './SongEmbed';
 import { Flipper, Flipped } from 'react-flip-toolkit';
 
 class SongList extends Component {
-
   render() {
     // Render based on filterbox
     return (
@@ -18,10 +17,16 @@ class SongList extends Component {
           this.props.songs.map((song) => (
             this.props.channelSort[song.channel]
             &&
-            <Flipped flipId={`${song.videoId}`}>
-              <div className='song' key={`${song.videoId}`}>
+            <Flipped
+              flipId={`${song.videoId}`}
+              key={`${song.videoId}`}
+            >
+              <div className='song'>
                   <SongEmbed
                     song={song}
+                    play={this.props.ytplay[song.videoId]}
+                    videoPlay={this.props.videoPlay}
+                    ytplayStateReset={this.props.ytplayStateReset}
                   />
 
                   <div className='song-title'>
@@ -40,7 +45,12 @@ class SongList extends Component {
 
                   <div className='song-info'>
                     <span className='song-channel'>
-                      {song.channel}
+                      <span className='channel-logo-wrapper'>
+                        <div className={`channel-logo ${this.props.logos[song.channel]}`}></div>
+                      </span>
+                      <span>
+                        {song.channel}
+                      </span>
                     </span>
                     <span className='song-date'>
                       {song.published}

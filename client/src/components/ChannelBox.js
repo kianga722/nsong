@@ -37,7 +37,9 @@ class ChannelBox extends Component {
                 checked={this.props.channelSort[channel]}
                 onChange={() => this.props.toggleSort(channel)}
               />
-              <span className="checkCustomFilter"></span>
+              <span className="checkCustomFilter">
+                <div className={`channelBox-logo ${this.props.logos[channel]}`}></div>
+              </span>
               <span className='filter-title'>
                 {channel}
               </span>

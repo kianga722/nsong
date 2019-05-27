@@ -1,20 +1,6 @@
 import React, { Component } from 'react';
 
 class SongEmbed extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      play: false
-    };
-  }
-
-  // Only want to load video if user clicks on the cover image
-  videoPlay = () => {
-    this.setState({
-      play: true
-    })
-  };
 
   renderNoPlay = () => {
     return (
@@ -22,7 +8,7 @@ class SongEmbed extends Component {
     )
   }
 
-  renderPlay = () => {
+  renderAutoPlay = () => {
     const song = this.props.song;
     return (
       <iframe
@@ -37,20 +23,24 @@ class SongEmbed extends Component {
     )
   }
 
+  componentDidMount() {
+    this.props.ytplayStateReset();
+  }
+
   render() {
     const song = this.props.song;
     return (
       <div
         className='youtube song-embed'
         data-embed={`${song.videoId}`}
-        onClick={this.videoPlay}
+        onClick={() => this.props.videoPlay(song.videoId)}
       >
         <img 
           className='yt-lazy-image'
           src={`https://img.youtube.com/vi/${song.videoId}/mqdefault.jpg`}
           alt='song preview'
         ></img>
-        {this.state.play ? this.renderPlay() : this.renderNoPlay()}
+        {this.props.play ? this.renderAutoPlay() : this.renderNoPlay()}
       </div>
     )
   }
