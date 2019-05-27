@@ -212,6 +212,14 @@ i {
 	border-radius: 5px;
 	white-space: nowrap;
 	z-index: 2;
+
+	max-height: 0;
+	overflow: hidden;
+}
+
+.slideDown {
+	max-height: 100vh;
+	transition: max-height .5s ease-in;
 }
 
 .dropdown li {
@@ -254,7 +262,8 @@ i {
 
 /* Song List */
 
-#songList {
+/* Accounting for Flipper */
+#songList > div {
 	max-width: 50vw;
 	margin: 0 auto;
 }
@@ -313,7 +322,8 @@ i {
 
 /* SongList Layout Change */
 
-#songList.layoutChange {
+/* Accounting for Flipper */
+#songList.layoutChange > div {
 	max-width: unset;
 	margin: 0 5vw 0 24vw;
 	display: grid;

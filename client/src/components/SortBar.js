@@ -17,7 +17,7 @@ class SortBar extends Component {
 
   renderDropdown = () => {
     return (
-      <ul className='dropdown'>
+      <ul className='dropdown slideDown'>
         <li
           className='dropdown-item'
           onClick={() => {
@@ -78,7 +78,7 @@ class SortBar extends Component {
               {this.state.dropdownDateShow ? <i className='arrow up'></i> : <i className='arrow down'></i>}
               
             </div>
-            {this.state.dropdownDateShow ? this.renderDropdown() : null}
+            {this.state.dropdownDateShow ? this.renderDropdown() : <ul className='dropdown'></ul>}
           </li>
         </ul>
       

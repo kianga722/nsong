@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import SongEmbed from './SongEmbed';
+import { Flipper, Flipped } from 'react-flip-toolkit';
 
 class SongList extends Component {
+
   render() {
     // Render based on filterbox
     return (
@@ -9,10 +11,15 @@ class SongList extends Component {
         id='songList'
         className={this.props.layoutChange ? 'layoutChange':null}
       >
+        <Flipper
+          flipKey={this.props.layoutChange}
+        >
         {
           this.props.songs.map((song) => (
             this.props.channelSort[song.channel]
-            && <div className='song' key={`${song.videoId}`}>
+            &&
+            <Flipped flipId={`${song.videoId}`}>
+              <div className='song' key={`${song.videoId}`}>
                   <SongEmbed
                     song={song}
                   />
@@ -39,9 +46,11 @@ class SongList extends Component {
                       {song.published}
                     </span>
                   </div>
-                </div>
+              </div>
+            </Flipped>
           ))
         }
+        </Flipper>
       </section>
     )
   }

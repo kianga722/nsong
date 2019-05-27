@@ -46,7 +46,7 @@ class SongEmbed extends Component {
         onClick={this.videoPlay}
       >
         <img 
-          class='yt-lazy-image'
+          className='yt-lazy-image'
           src={`https://img.youtube.com/vi/${song.videoId}/mqdefault.jpg`}
           alt='song preview'
         ></img>
