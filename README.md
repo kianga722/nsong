@@ -13,4 +13,4 @@ Displays recent songs from popular Youtube channels with various sorting options
 
 ## Future Improvements
 
-* Implement Redux
+* Implement Redux.
