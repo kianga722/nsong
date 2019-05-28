@@ -3,6 +3,11 @@ import SongEmbed from './SongEmbed';
 import { Flipper, Flipped } from 'react-flip-toolkit';
 
 class SongList extends Component {
+  // Check if no videos to display
+  isUnselectAll = () => {
+    return Object.values(this.props.channelSort).every(c => c === false)
+  }
+
   render() {
     // Render based on filterbox
     return (
@@ -10,6 +15,9 @@ class SongList extends Component {
         id='songList'
         className={this.props.layoutChange ? 'layoutChange':null}
       >
+        {
+          this.isUnselectAll() ? <div id='msgNoVideos'>No videos to show!</div> : null
+        }
         <Flipper
           flipKey={this.props.layoutChange}
         >

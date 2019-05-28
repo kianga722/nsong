@@ -208,7 +208,6 @@ i {
 	display: flex;
 	flex-direction: column;
 	background-color: #f3f3f3;
-	border: 2px solid red;
 	border-radius: 5px;
 	white-space: nowrap;
 	z-index: 2;
@@ -218,6 +217,7 @@ i {
 }
 
 .slideDown {
+	border: 2px solid red;
 	max-height: 100vh;
 	transition: max-height .5s ease-in;
 }
@@ -262,10 +262,25 @@ i {
 
 /* Song List */
 
+/* No Video Message */
+#msgNoVideos {
+	margin-top: 20vh;
+	color: red;
+	font-size: 32px;
+	font-weight: 700;
+	text-align: center;
+}
+
+
 /* Accounting for Flipper */
 #songList > div {
 	max-width: 50vw;
 	margin: 0 auto;
+}
+
+#songList > #msgNoVideos {
+	display: block;
+	margin-top: 20vh;
 }
 
 .song {
@@ -371,6 +386,10 @@ i {
 	grid-gap: 2vw;
 }
 
+#songList.layoutChange > #msgNoVideos {
+	margin-top: 20vh;
+}
+
 .layoutChange .song {
 	margin: 2rem auto 0 auto;
 	grid-template-columns: 1fr;
@@ -451,7 +470,7 @@ i {
 	left: 0;
 }
 
-/* LayoutChange*/
+/* LayoutChange Button */
 
 #layoutChange {
 	position: fixed;
@@ -568,4 +587,100 @@ i {
 
 .filter-title {
 	text-transform: capitalize;
+}
+
+@media (max-width: 1000px) {
+	#layoutChange {
+		position: absolute;
+		top: 1.5rem;
+		left: 22vw;
+		margin: 0;
+		background-color: white;
+		z-index: 1;
+	}
+
+	#channelBox {
+		position: absolute;
+		margin: 0;
+		top: 8rem;
+		left: 50%;
+		margin-left: -92px;
+	}
+
+	#songList {
+		margin-top: 18rem;
+	}
+
+	#songList.layoutChange > div {
+		margin: 0 5rem;
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+}
+
+@media (max-width: 900px) {
+	#sortBar {
+		justify-content: flex-end;
+	}
+
+	#logo {
+		display: none;
+	}
+
+	#layoutChange {
+		left: 1.5rem;
+	}
+
+	.song {
+		grid-template-areas:
+		'embed title'
+		'embed link'
+		'info info';
+	}
+
+	#songList .song .song-info {
+		margin: 1rem 0 0 0;
+	}
+
+	#songList.layoutChange .song .song-info {
+		margin: .5rem 0;
+	}
+}
+
+@media (max-width: 700px) {
+	#sortBar {
+		justify-content: space-evenly;
+	}
+
+	#sort-options {
+		flex-direction: column;
+	}
+
+	#dateSort {
+		margin-top: 0;
+	}
+
+	#channelBox {
+		top: 12rem;
+	}
+
+	#layoutChange {
+		top: 28rem;
+		left: 50%;
+		margin-left: -74px;
+	}
+
+	#songList {
+		margin-top: 24rem;
+	}
+
+	#songList > div {
+		max-width: unset;
+		margin: 0 1rem;
+	}
+
+	#songList.layoutChange > div {
+		margin: 0 1rem;
+		grid-template-columns: 1fr 1fr;
+	}
+
 }
