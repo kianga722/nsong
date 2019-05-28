@@ -17,7 +17,9 @@ class SortBar extends Component {
 
   renderDropdown = () => {
     return (
-      <ul className='dropdown slideDown'>
+      <ul
+        className='dropdown slideDown'
+      >
         <li
           className='dropdown-item'
           onClick={() => {
@@ -41,6 +43,25 @@ class SortBar extends Component {
       </ul>
     )
   }
+
+  handleClick = (e) => {
+    if (this.node.contains(e.target)) {
+      return;
+    }
+    this.setState({
+      dropdownDateShow: false
+    })
+  }
+
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleClick, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClick, false);
+  }
+
+
 
   render() {
     return (
@@ -70,6 +91,7 @@ class SortBar extends Component {
           <li
             id='dateSort'
             onClick={this.dropdownToggle}
+            ref={node => this.node = node}
           >
             <div className='dropdownToggle'>
               <span>
