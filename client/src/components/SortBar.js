@@ -44,6 +44,7 @@ class SortBar extends Component {
     )
   }
 
+  // Close dropdown when clicking outside of dropdown
   handleClick = (e) => {
     if (this.node.contains(e.target)) {
       return;
