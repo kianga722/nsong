@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 
+import { connect } from 'react-redux';
+import { toggleGroupChannels, toggleSortDateNewest } from '../actions/songsActions';
+import PropTypes from 'prop-types';
+
 class SortBar extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +27,7 @@ class SortBar extends Component {
         <li
           className='dropdown-item'
           onClick={() => {
-            this.props.dateSortNewest(true);
+            this.props.toggleSortDateNewest(true);
             this.dropdownToggle();
           }}
         >
@@ -33,7 +37,7 @@ class SortBar extends Component {
         <li
           className='dropdown-item'
           onClick={() => {
-            this.props.dateSortNewest(false);
+            this.props.toggleSortDateNewest(false);
             this.dropdownToggle();
           }}
         >
@@ -62,8 +66,6 @@ class SortBar extends Component {
     document.removeEventListener('mousedown', this.handleClick, false);
   }
 
-
-
   render() {
     return (
       <div id='sortBar'>
@@ -82,7 +84,7 @@ class SortBar extends Component {
                 type='checkbox'
                 id='groupChannelsSort'
                 checked={this.props.groupChannels}
-                onChange={this.props.groupChannelsEnable}
+                onChange={this.props.toggleGroupChannels}
               />
               <span className="checkCustomGroup"></span>
               <span>Group By Channel</span>
@@ -110,4 +112,16 @@ class SortBar extends Component {
   }
 }
 
-export default SortBar;
+SortBar.propTypes = {
+  toggleGroupChannels: PropTypes.func.isRequired,
+  toggleSortDateNewest: PropTypes.func.isRequired,
+  groupChannels: PropTypes.bool.isRequired,
+  sortDateNewest: PropTypes.bool.isRequired
+}
+
+const mapStateToProps = (state) => ({
+  groupChannels: state.songsList.groupChannels,
+  sortDateNewest: state.songsList.sortDateNewest
+});
+
+export default connect(mapStateToProps, { toggleGroupChannels, toggleSortDateNewest })(SortBar);

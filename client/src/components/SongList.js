@@ -2,13 +2,22 @@ import React, { Component } from 'react';
 import SongEmbed from './SongEmbed';
 import { Flipper, Flipped } from 'react-flip-toolkit';
 
+import { connect } from 'react-redux';
+import { getSongs } from '../actions/songsActions';
+import PropTypes from 'prop-types';
+
 class SongList extends Component {
   // Check if no videos to display
   isUnselectAll = () => {
     return Object.values(this.props.channelSort).every(c => c === false)
   }
 
+  componentDidMount() {
+    this.props.getSongs();
+  }
+
   render() {
+    const songs = this.props.songs;
     // Render based on filterbox
     return (
       <section
@@ -22,7 +31,7 @@ class SongList extends Component {
           flipKey={this.props.layoutChange}
         >
         {
-          this.props.songs.map((song) => (
+          songs.map((song) => (
             this.props.channelSort[song.channel]
             &&
             <Flipped
@@ -32,9 +41,6 @@ class SongList extends Component {
               <div className='song'>
                   <SongEmbed
                     song={song}
-                    play={this.props.ytplay[song.videoId]}
-                    videoPlay={this.props.videoPlay}
-                    ytplayStateReset={this.props.ytplayStateReset}
                   />
 
                   <div className='song-title'>
@@ -74,4 +80,13 @@ class SongList extends Component {
   }
 }
 
-export default SongList;
+SongList.propTypes = {
+  getSongs: PropTypes.func.isRequired,
+  songs: PropTypes.array.isRequired
+}
+
+const mapStateToProps = (state) => ({
+  songs: state.songsList.songs
+});
+
+export default connect(mapStateToProps, { getSongs })(SongList);

@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 
+import { connect } from 'react-redux';
+import { resetYT, setYTPlay } from '../actions/songsActions';
+import PropTypes from 'prop-types';
+
 class SongEmbed extends Component {
 
   renderNoPlay = () => {
@@ -24,7 +28,7 @@ class SongEmbed extends Component {
   }
 
   componentDidMount() {
-    this.props.ytplayStateReset();
+    this.props.resetYT();
   }
 
   render() {
@@ -33,17 +37,27 @@ class SongEmbed extends Component {
       <div
         className='youtube song-embed'
         data-embed={`${song.videoId}`}
-        onClick={() => this.props.videoPlay(song.videoId)}
+        onClick={() => this.props.setYTPlay(song.videoId)}
       >
         <img 
           className='yt-lazy-image'
           src={`https://img.youtube.com/vi/${song.videoId}/mqdefault.jpg`}
           alt='song preview'
         ></img>
-        {this.props.play ? this.renderAutoPlay() : this.renderNoPlay()}
+        {this.props.ytPlay[song.videoId] ? this.renderAutoPlay() : this.renderNoPlay()}
       </div>
     )
   }
 }
 
-export default SongEmbed;
+SongEmbed.propTypes = {
+  resetYT: PropTypes.func.isRequired,
+  setYTPlay: PropTypes.func.isRequired,
+  ytPlay: PropTypes.object.isRequired
+}
+
+const mapStateToProps = (state) => ({
+  ytPlay: state.songsList.ytPlay
+});
+
+export default connect(mapStateToProps, { resetYT, setYTPlay })(SongEmbed);

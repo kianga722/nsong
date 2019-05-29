@@ -4,16 +4,19 @@ import SongList from './components/SongList';
 import LayoutChange from './components/LayoutChange';
 import ChannelBox from './components/ChannelBox';
 
+import { Provider } from 'react-redux';
+import store from './store';
+
 class App extends Component {  
   constructor(props) {
     super(props);
 
     this.state = {
-      songs: null,
-      ytplay: {},
-      ytplayDefault: {},
-      groupChannels: false,
-      sortDateNewest: true,
+      //songs: null,
+      //ytplay: {},
+      //ytplayDefault: {},
+      //groupChannels: false,
+      //sortDateNewest: true,
       layoutChange: false,
       channelSort: {
         Proximity: true,
@@ -30,6 +33,7 @@ class App extends Component {
     };
   }
 
+  /*
   songsSet = (songsNew) => {
     this.setState({
       songs: songsNew
@@ -50,6 +54,7 @@ class App extends Component {
       })
     })
   }
+
 
   // Reset YT vids on sort so they do not autoplay
   ytplayStateReset = () => {
@@ -85,6 +90,7 @@ class App extends Component {
   }
 
   groupChannelsEnable = () => {
+    console.log(this.props)
     let songsGrouped = [...this.state.songs];
     songsGrouped.sort((a, b) => {
       let d1;
@@ -104,12 +110,25 @@ class App extends Component {
     this.ytplayStateReset();
   }
 
-
   sortDateNewestToggle = (bool) => {
     this.setState({
       sortDateNewest: bool
     })
   }
+
+  dateSortNewest = (bool) => {
+    let songsSorted = [...this.state.songs];
+    songsSorted.sort((a, b) => {
+      const d1 = new Date(a.published);
+      const d2 = new Date(b.published);
+      return this.sortSong(d1, d2, bool);
+    })
+    this.songsSet(songsSorted);
+    this.sortDateNewestToggle(bool);
+    this.ytplayStateReset();
+  }
+*/
+
 
   layoutToggle = () => {
     this.setState({
@@ -138,18 +157,9 @@ class App extends Component {
     })
   }
 
-  dateSortNewest = (bool) => {
-    let songsSorted = [...this.state.songs ];
-    songsSorted.sort((a, b) => {
-      const d1 = new Date(a.published);
-      const d2 = new Date(b.published);
-      return this.sortSong(d1, d2, bool);
-    })
-    this.songsSet(songsSorted);
-    this.sortDateNewestToggle(bool); 
-    this.ytplayStateReset();
-  }
+  
 
+  /*
   async componentDidMount() {
     // Fetch data from YT API
     const songsGet = await fetch('/api/');
@@ -158,42 +168,39 @@ class App extends Component {
     // Set initial state of all YT videos
     this.ytplayStateInit();
   }
+  */
+  
 
   render() {
     return (
-      <div>
-        {
-          this.state.songs
-          && <div id='content'>
-              <SortBar
-                groupChannels={this.state.groupChannels}
-                groupChannelsEnable={this.groupChannelsEnable}
-                sortDateNewest={this.state.sortDateNewest}
-                dateSortNewest={this.dateSortNewest}
-              />
-              <SongList
-                songs={this.state.songs}
-                videoPlay={this.videoPlay}
-                ytplay={this.state.ytplay}
-                ytplayStateReset={this.ytplayStateReset}
-                channelSort={this.state.channelSort}
-                layoutChange={this.state.layoutChange}
-                logos={this.state.logos}
-              />
-              <LayoutChange
-                layoutChange={this.state.layoutChange}
-                layoutToggle={this.layoutToggle}
-              />
-              <ChannelBox
-                channelSort={this.state.channelSort}
-                toggleSort={this.toggleSort}
-                selectAll={this.selectAll}
-                logos={this.state.logos}
-              />
-             </div>  
-        }
-      </div>
-    );
+              <Provider store={store}>
+                <SortBar
+                  //groupChannels={this.state.groupChannels}
+                  //groupChannelsEnable={this.groupChannelsEnable}
+                  //sortDateNewest={this.state.sortDateNewest}
+                  //dateSortNewest={this.dateSortNewest}
+                />
+                <SongList
+                  //songs={this.state.songs}
+                  //videoPlay={this.videoPlay}
+                  //ytplay={this.state.ytplay}
+                  //ytplayStateReset={this.ytplayStateReset}
+                  channelSort={this.state.channelSort}
+                  layoutChange={this.state.layoutChange}
+                  logos={this.state.logos}
+                />
+                <LayoutChange
+                  layoutChange={this.state.layoutChange}
+                  layoutToggle={this.layoutToggle}
+                />
+                <ChannelBox
+                  channelSort={this.state.channelSort}
+                  toggleSort={this.toggleSort}
+                  selectAll={this.selectAll}
+                  logos={this.state.logos}
+                />
+              </Provider>
+    )
   }
 }
 
