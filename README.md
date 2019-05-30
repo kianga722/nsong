@@ -14,4 +14,4 @@ Displays recent songs from popular Youtube channels with various sorting options
 ## Future Improvements
 
 * Implement Redux
-* Find solution for videos auto-playing after already started and sorting
+* Find solution for videos auto-playing after being started and user sorts
