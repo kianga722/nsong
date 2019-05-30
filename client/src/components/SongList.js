@@ -82,11 +82,17 @@ class SongList extends Component {
 
 SongList.propTypes = {
   getSongs: PropTypes.func.isRequired,
-  songs: PropTypes.array.isRequired
+  songs: PropTypes.array.isRequired,
+  layoutChange: PropTypes.bool.isRequired,
+  channelSort: PropTypes.object.isRequired,
+  logos: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
-  songs: state.songsList.songs
+  songs: state.songsList.songs,
+  layoutChange: state.layoutChange.layoutChange,
+  channelSort: state.channelSort.channelSort,
+  logos: state.channelSort.logos
 });
 
 export default connect(mapStateToProps, { getSongs })(SongList);

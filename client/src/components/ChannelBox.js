@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 
+import { connect } from 'react-redux';
+import { toggleChannel, selectAllChannel } from '../actions/channelActions';
+import PropTypes from 'prop-types';
+
 class ChannelBox extends Component {
 
   // Check if every filter option is selected
@@ -12,7 +16,7 @@ class ChannelBox extends Component {
     return (
       <div
         className='filter-all'
-        onClick={() => this.props.selectAll(bool)}
+        onClick={() => this.props.selectAllChannel(bool)}
       >
         {bool ? 'Select All':'Unselect All'}
       </div>
@@ -35,7 +39,7 @@ class ChannelBox extends Component {
                 type='checkbox'
                 id={`filter-${channel}`}
                 checked={this.props.channelSort[channel]}
-                onChange={() => this.props.toggleSort(channel)}
+                onChange={() => this.props.toggleChannel(channel)}
               />
               <span className="checkCustomFilter">
                 <div className={`channelBox-logo ${this.props.logos[channel]}`}></div>
@@ -52,4 +56,16 @@ class ChannelBox extends Component {
   }
 }
 
-export default ChannelBox;
+ChannelBox.propTypes = {
+  toggleChannel: PropTypes.func.isRequired,
+  selectAllChannel: PropTypes.func.isRequired,
+  channelSort: PropTypes.object.isRequired,
+  logos: PropTypes.object.isRequired
+}
+
+const mapStateToProps = (state) => ({
+  channelSort: state.channelSort.channelSort,
+  logos: state.channelSort.logos
+});
+
+export default connect(mapStateToProps, { toggleChannel, selectAllChannel })(ChannelBox);
