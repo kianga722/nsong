@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+// types
+type LayoutProps = {
+  layoutChange: boolean,
+  layoutToggle: () => void
+}
 
-class LayoutChange extends Component {
+
+class LayoutChange extends Component<LayoutProps, {}> {
   render() {
     return (
       <aside

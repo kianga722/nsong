@@ -4,8 +4,37 @@ import SongList from './components/SongList';
 import LayoutChange from './components/LayoutChange';
 import ChannelBox from './components/ChannelBox';
 
-class App extends Component {  
-  constructor(props) {
+// types
+export type SongObject = {
+  title: string,
+  published: string,
+  videoId: string,
+  channel: string
+}
+
+export type ChannelName = 'Proximity' | 'Revealed Music' | 'Thrilling Music' | 'WaveMusic';
+
+type AppState = {
+  songs: SongObject[] | null,
+  ytplay: {
+    [key: string]: boolean;
+  },
+  ytplayDefault: {
+    [key: string]: boolean;
+  },
+  groupChannels: boolean,
+  sortDateNewest: boolean,
+  layoutChange: boolean,
+  channelSort: {
+    [key: string]: boolean;
+  },
+  logos: {
+    [key: string]: string;
+  }
+}
+
+class App extends Component<{}, AppState> {  
+  constructor(props: any) {
     super(props);
 
     this.state = {
@@ -30,14 +59,17 @@ class App extends Component {
     };
   }
 
-  songsSet = (songsNew) => {
+  songsSet = (songsNew: SongObject[]) => {
     this.setState({
       songs: songsNew
     })
   }
 
   ytplayStateInit = () => {
-    this.state.songs.map((song) => {
+    if (!this.state.songs) {
+      return;
+    }
+    this.state.songs.map((song: SongObject) => {
       this.setState({
         ytplay: {
           ...this.state.ytplay,
@@ -60,7 +92,7 @@ class App extends Component {
     })
   }
 
-  videoPlay = (videoId) => {
+  videoPlay = (videoId: string) => {
     this.setState({
       ytplay: {
         ...this.state.ytplay,
@@ -75,18 +107,22 @@ class App extends Component {
     })
   }
 
-  sortSong = (d1, d2, bool) => {
+  sortSong = (d1: Date | string, d2: Date | string, bool: Boolean) => {
     if (d1 >= d2) {
       return bool ? -1:1;
     }
     if (d1 < d2) {
       return bool ? 1:-1;
     }
+    return 0;
   }
 
   groupChannelsEnable = () => {
+    if (!this.state.songs) {
+      return;
+    }
     let songsGrouped = [...this.state.songs];
-    songsGrouped.sort((a, b) => {
+    songsGrouped.sort((a: SongObject, b: SongObject) => {
       let d1;
       let d2;
       if (this.state.groupChannels) {
@@ -105,7 +141,7 @@ class App extends Component {
   }
 
 
-  sortDateNewestToggle = (bool) => {
+  sortDateNewestToggle = (bool: boolean) => {
     this.setState({
       sortDateNewest: bool
     })
@@ -117,7 +153,7 @@ class App extends Component {
     })
   }
 
-  toggleSort = (channel) => {
+  toggleSort = (channel: string) => {
     this.setState({
       channelSort: {
         ...this.state.channelSort,
@@ -126,9 +162,9 @@ class App extends Component {
     })
   }
 
-  selectAll = (bool) => {
+  selectAll = (bool: boolean) => {
     let channelCopy = { ...this.state.channelSort };
-    Object.keys(channelCopy).forEach(channel => {
+    Object.keys(channelCopy).forEach((channel) => {
       channelCopy[channel] = bool;
     })
     this.setState({
@@ -138,7 +174,10 @@ class App extends Component {
     })
   }
 
-  dateSortNewest = (bool) => {
+  dateSortNewest = (bool: boolean) => {
+    if (!this.state.songs) {
+      return;
+    }
     let songsSorted = [...this.state.songs ];
     songsSorted.sort((a, b) => {
       const d1 = new Date(a.published);

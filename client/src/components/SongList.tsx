@@ -1,8 +1,27 @@
 import React, { Component } from 'react';
 import SongEmbed from './SongEmbed';
 import { Flipper, Flipped } from 'react-flip-toolkit';
+// types
+import { SongObject } from '../App';
 
-class SongList extends Component {
+type SongProps = {
+  songs: SongObject[] | null,
+  videoPlay: (videoId: string) => void,
+  ytplay: {
+    [key: string]: boolean;
+  },
+  ytplayStateReset: () => void,
+  channelSort: {
+    [key: string]: boolean;
+  },
+  layoutChange: boolean,
+  logos: {
+    [key: string]: string;
+  }
+}
+
+
+class SongList extends Component<SongProps, {}> {
   // Check if no videos to display
   isUnselectAll = () => {
     return Object.values(this.props.channelSort).every(c => c === false)
@@ -13,7 +32,7 @@ class SongList extends Component {
     return (
       <section
         id='songList'
-        className={this.props.layoutChange ? 'layoutChange':null}
+        className={this.props.layoutChange ? 'layoutChange': undefined}
       >
         {
           this.isUnselectAll() ? <div id='msgNoVideos'>No videos to show!</div> : null
@@ -22,7 +41,7 @@ class SongList extends Component {
           flipKey={this.props.layoutChange}
         >
         {
-          this.props.songs.map((song) => (
+          this.props.songs && this.props.songs.map((song) => (
             this.props.channelSort[song.channel]
             &&
             <Flipped

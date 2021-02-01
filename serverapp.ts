@@ -2,6 +2,8 @@
 const express = require('express');
 const axios = require('axios');
 const path = require('path');
+// types
+import { Request, Response } from 'express';
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
@@ -24,17 +26,43 @@ const channelsYT = {
 };
 
 // function to create array of promises from urlBase and channelsYT
-const promiseMake = () => Object.values(channelsYT).map(channel => axios.get(urlBase + channel));
+const promiseMake: () => Promise<any>[] = () => Object.values(channelsYT).map(channel => axios.get(urlBase + channel));
 
 // function to format date
-const dateFormat = (date) => {
+const dateFormat = (date: string) => {
   const dateNew = new Date(date);
   return dateNew.toLocaleString('en-us');
 };
 
+
+
+type YTSongItem = {
+    snippet: {
+        title: string,
+        publishedAt: string,
+        resourceId: {
+            videoId: string
+        },
+        channelTitle: string
+    }
+}
+
+type YTChannel = {
+    data: {
+        items: YTSongItem[]
+    }
+}
+
+type SongObject = {
+    title: string,
+    published: string,
+    videoId: string,
+    channel: string
+}
+
 // function to insert each song into its own object
-const songInsert = (channel, songs) => {
-  channel.data.items.map((song) => {
+const songInsert = (channel: YTChannel, songs: SongObject[]) => {
+  channel.data.items.map((song: YTSongItem) => {
     const songObj = {
       title: song.snippet.title,
       published: dateFormat(song.snippet.publishedAt),
@@ -46,8 +74,8 @@ const songInsert = (channel, songs) => {
 };
 
 // function to sort songs by date
-const sortDate = (songs) => {
-  const songsSorted = songs.sort((a, b) => {
+const sortDate = (songs: SongObject[]) => {
+  const songsSorted = songs.sort((a: SongObject, b: SongObject) => {
     const d1 = new Date(a.published);
     const d2 = new Date(b.published);
     if (d1 >= d2) {
@@ -56,14 +84,15 @@ const sortDate = (songs) => {
     if (d1 < d2) {
       return 1;
     }
+    return 0;
   });
   return songsSorted;
 };
 
 // retrieve list of videos
-app.get('/api/', (req, res) => {
+app.get('/api/', (req: Request, res: Response) => {
   // Array of songs to be collected
-  const songs = [];
+  const songs: SongObject[] = [];
 
   // Wait until all promises are finished before sending array to front
   Promise.all(promiseMake())
@@ -86,7 +115,7 @@ if (process.env.NODE_ENV === 'production') {
   // Serve any static files
   app.use(express.static(path.join(__dirname, 'client/build')));
   // Handle React routing, return all requests to React app
-  app.get('*', (req, res) => {
+  app.get('*', (req: Request, res: Response) => {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 }

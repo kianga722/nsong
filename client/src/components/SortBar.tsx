@@ -1,8 +1,22 @@
 import React, { Component } from 'react';
+// types
+type SortProps = {
+  groupChannels: boolean,
+  groupChannelsEnable: () => void,
+  sortDateNewest: boolean,
+  dateSortNewest: (bool: boolean) => void
+}
 
-class SortBar extends Component {
-  constructor(props) {
+type SortState = {
+  dropdownDateShow: boolean
+}
+
+class SortBar extends Component<SortProps, SortState> {
+  private node: React.RefObject<HTMLLIElement>;
+
+  constructor(props: SortProps) {
     super(props);
+    this.node = React.createRef();
 
     this.state = {
       dropdownDateShow: false
@@ -45,8 +59,8 @@ class SortBar extends Component {
   }
 
   // Close dropdown when clicking outside of dropdown
-  handleClick = (e) => {
-    if (this.node.contains(e.target)) {
+  handleClick = (e: Event) => {
+    if (this.node.current && this.node.current.contains(e.target as Node)) {
       return;
     }
     this.setState({
@@ -92,7 +106,7 @@ class SortBar extends Component {
           <li
             id='dateSort'
             onClick={this.dropdownToggle}
-            ref={node => this.node = node}
+            ref={this.node}
           >
             <div className='dropdownToggle'>
               <span>

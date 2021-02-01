@@ -1,6 +1,18 @@
 import React, { Component } from 'react';
 
-class ChannelBox extends Component {
+type ChannelBoxProps = {
+  channelSort: {
+    [key: string]: boolean;
+  },
+  toggleSort: (channel: string) => void,
+  selectAll: (bool: boolean) => void,
+  logos: {
+    [key: string]: string;
+  }
+}
+
+
+class ChannelBox extends Component<ChannelBoxProps, {}> {
 
   // Check if every filter option is selected
   isSelectAll = () => {
@@ -8,7 +20,7 @@ class ChannelBox extends Component {
   }
 
   // Render correct select all button
-  renderSelectAll = (bool) => {
+  renderSelectAll = (bool: boolean) => {
     return (
       <div
         className='filter-all'

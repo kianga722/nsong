@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
+// types
+import { SongObject } from '../App';
 
-class SongEmbed extends Component {
+type SongEmbedProps = {
+  song: SongObject,
+  play: boolean,
+  videoPlay: (videoId: string) => void,
+  ytplayStateReset: () => void,
+}
+
+class SongEmbed extends Component<SongEmbedProps, {}> {
 
   renderNoPlay = () => {
     return (
